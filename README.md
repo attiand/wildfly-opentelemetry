@@ -4,15 +4,18 @@ Wildfly tries to export opentelemetry traces despite setting sampler-type to `of
 
 ```bash
 ./mvnw clean package
-unzip -d ~/tools ~/Downloads/wildfly-39.0.1.Final.zip
-~/tools/wildfly-39.0.1.Final/bin/standalone.sh
-~/tools/wildfly-39.0.1.Final/bin/jboss-cli.sh --connect --file=opentelemetry-off.cli
+curl -L  https://github.com/wildfly/wildfly/releases/download/39.0.1.Final/wildfly-39.0.1.Final.zip -o /tmp/wildfly-39.0.1.Final.zip
+unzip -d target /tmp/wildfly-39.0.1.Final.zip
+target/wildfly-39.0.1.Final/bin/standalone.sh
+
+# from another terminal
+target/wildfly-39.0.1.Final/bin/jboss-cli.sh --connect --file=opentelemetry-off.cli
 ```
 Restart
 
 ```bash
-wildfly-39.0.1.Final/bin/standalone.sh
-cp target/test.war ~/tools/wildfly-39.0.1.Final/standalone/deployments
+target/wildfly-39.0.1.Final/bin/standalone.sh
+cp target/test.war target/wildfly-39.0.1.Final/standalone/deployments
 ```
 
 The war deploys, and Wildfly starts to export opentelemetry traces.
@@ -26,10 +29,10 @@ The war deploys, and Wildfly starts to export opentelemetry traces.
 Check the `sampler-type` setting.
 
 ```bash
-~/tools/wildfly-39.0.1.Final/bin/jboss-cli.sh --connect                             
-[standalone@localhost:9990 /] /subsystem=opentelemetry:read-attribute(name=sampler-type,resolve-expressions=true
+target/wildfly-39.0.1.Final/bin/jboss-cli.sh --connect
+[standalone@localhost:9990 /] /subsystem=opentelemetry:read-attribute(name=sampler-type,resolve-expressions=true)
 {
 "outcome" => "success",
 "result" => "off"
 }
-``` 
+```

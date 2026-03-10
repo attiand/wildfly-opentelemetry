@@ -15,6 +15,8 @@ Restart
 
 ```bash
 target/wildfly-39.0.1.Final/bin/standalone.sh
+
+# from another terminal
 cp target/test.war target/wildfly-39.0.1.Final/standalone/deployments
 ```
 

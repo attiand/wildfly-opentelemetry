@@ -28,7 +28,9 @@ The war deploys, and Wildfly starts to export opentelemetry traces.
 	Suppressed: java.lang.IllegalStateException: Retries exhausted: 3/3
 ```
 
-Check the `sampler-type` setting.
+[Full stack trace](error.log)
+
+## Check the sampler-type setting
 
 ```bash
 target/wildfly-39.0.1.Final/bin/jboss-cli.sh --connect
